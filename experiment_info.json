@@ -1,0 +1,4 @@
+{
+    "run_id": "ac854f66cbff4ac89bcec0ba04c25ecb",
+    "model_path": "s3://ytcommentanalysis/362050583244596874/ac854f66cbff4ac89bcec0ba04c25ecb/artifacts/lgbm_model"
+}

@@ -97,7 +97,8 @@ def train_lgbm(X_train: np.ndarray, y_train: np.ndarray, learning_rate: float, m
             reg_lambda=0.1,  # L2 regularization
             learning_rate=learning_rate,
             max_depth=max_depth,
-            n_estimators=n_estimators
+            n_estimators=n_estimators,
+            n_jobs=-1
         )
         best_model.fit(X_train, y_train)
         logger.debug('LightGBM model training completed')

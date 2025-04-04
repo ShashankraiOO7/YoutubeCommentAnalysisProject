@@ -24,10 +24,10 @@ document.addEventListener("DOMContentLoaded", async () => {
       outputDiv.innerHTML += `<p>Fetched ${comments.length} comments. Performing sentiment analysis...</p>`;
       const predictions = await getSentimentPredictions(comments);
 // In the predictions processing block:
-    if (!predictions || predictions.length === 0) {
-      outputDiv.innerHTML += "<p>No predictions received</p>";
-      return;
-    }
+      if (!predictions || predictions.length === 0) {
+        outputDiv.innerHTML += "<p>No predictions received</p>";
+        return;
+      }
       if (predictions) {
         // Process the predictions to get sentiment counts and sentiment data
         const sentimentCounts = { "1": 0, "0": 0, "-1": 0 };

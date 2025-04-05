@@ -89,4 +89,11 @@ jobs:
           AWS_DEFAULT_REGION: ap-south-1
         run: |
           pytest scripts/model_performance_test.py
+      - name: Model Promotion test
+        env:
+          AWS_ACCESS_KEY_ID: ${{ secrets.AWS_ACCESS_KEY_ID }}
+          AWS_SECRET_ACCESS_KEY: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
+          AWS_DEFAULT_REGION: ap-south-1
+        run: |
+          pytest scripts/model_promotion.py
 

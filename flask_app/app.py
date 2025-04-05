@@ -24,7 +24,7 @@ CORS(app)  # Enable CORS for all routes
 # Define the preprocessing function
 logging.basicConfig(level=logging.INFO)
 app.logger.setLevel(logging.INFO)
-print(app.url_map)
+
 
 def preprocess_comment(comment):
     """Apply preprocessing transformations to a comment."""

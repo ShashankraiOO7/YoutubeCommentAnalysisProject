@@ -29,7 +29,12 @@ def test_model_with_vectorizer(model_name, stage, vectorizer_path):
             vectorizer = pickle.load(file)
 
         # Create a dummy input for the model
-        input_text = "hi how are you"
+        input_text = [
+                        ("hi how are you", True),  # Valid input
+                        ("", False),  # Empty string should fail
+                        (" "*100, False),  # Whitespace should fail
+                        (None, False)  # None input
+                    ]
         input_data = vectorizer.transform([input_text])
         input_df = pd.DataFrame(input_data.toarray(), columns=vectorizer.get_feature_names_out())  # <-- Use correct feature names
 

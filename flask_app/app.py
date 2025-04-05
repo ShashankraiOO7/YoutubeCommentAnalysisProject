@@ -62,7 +62,6 @@ def health():
 
 @app.route('/predict', methods=['POST'])
 def predict():
-    print("********------------------*******************")
     data = request.json
     comments = data.get('comments')
     
@@ -86,7 +85,6 @@ def predict():
     return jsonify(response)
 @app.route('/predict_with_timestamps', methods=['POST'])
 def predict_with_timestamps():
-    print("####################################")
     data = request.json
     comments_data = data.get('comments')
     

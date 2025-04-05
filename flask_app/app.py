@@ -51,38 +51,6 @@ def load_model_and_vectorizer(model_name, model_version, vectorizer_path):
 
 # Initialize the model and vectorizer
 model, vectorizer = load_model_and_vectorizer("yt_chrome_plugin_model", "2", "./tfidf_vectorizer.pkl")
-
-@app.route('/')
-def home():
-    return "Welcome to the Flask API"
-
-@app.route('/health')
-def health():
-    return jsonify({"status": "healthy"}), 200
-
-@app.route('/predict', methods=['POST'])
-def predict():
-    data = request.json
-    comments = data.get('comments')
-    
-    if not comments:
-        return jsonify({"error": "No comments provided"}), 400
-
-    try:
-        # Preprocess each comment before vectorizing
-        preprocessed_comments = [preprocess_comment(comment) for comment in comments]
-        
-        # Transform comments using the vectorizer
-        transformed_comments = vectorizer.transform(preprocessed_comments)
-        
-        # Make predictions
-        predictions = model.predict(transformed_comments).tolist()  # Convert to list
-    except Exception as e:
-        return jsonify({"error": f"Prediction failed: {str(e)}"}), 500
-    
-    # Return the response with original comments and predicted sentiments
-    response = [{"comment": comment, "sentiment": sentiment} for comment, sentiment in zip(comments, predictions)]
-    return jsonify(response)
 @app.route('/predict_with_timestamps', methods=['POST'])
 def predict_with_timestamps():
     data = request.json
@@ -108,6 +76,30 @@ def predict_with_timestamps():
     
     # Return the response with original comments, predicted sentiments, and timestamps
     response = [{"comment": comment, "sentiment": sentiment, "timestamp": timestamp} for comment, sentiment, timestamp in zip(comments, predictions, timestamps)]
+    return jsonify(response)
+
+@app.route('/predict', methods=['POST'])
+def predict():
+    data = request.json
+    comments = data.get('comments')
+    
+    if not comments:
+        return jsonify({"error": "No comments provided"}), 400
+
+    try:
+        # Preprocess each comment before vectorizing
+        preprocessed_comments = [preprocess_comment(comment) for comment in comments]
+        
+        # Transform comments using the vectorizer
+        transformed_comments = vectorizer.transform(preprocessed_comments)
+        
+        # Make predictions
+        predictions = model.predict(transformed_comments).tolist()  # Convert to list
+    except Exception as e:
+        return jsonify({"error": f"Prediction failed: {str(e)}"}), 500
+    
+    # Return the response with original comments and predicted sentiments
+    response = [{"comment": comment, "sentiment": sentiment} for comment, sentiment in zip(comments, predictions)]
     return jsonify(response)
 @app.route('/generate_chart', methods=['POST'])
 def generate_chart():

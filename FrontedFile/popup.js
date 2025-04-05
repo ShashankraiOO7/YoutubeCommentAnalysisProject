@@ -129,7 +129,7 @@ document.addEventListener("DOMContentLoaded", async () => {
     let comments = [];
     let pageToken = "";
     try {
-      while (comments.length < 500) {
+      while (comments.length < 5000) {
         const response = await fetch(`https://www.googleapis.com/youtube/v3/commentThreads?part=snippet&videoId=${videoId}&maxResults=100&pageToken=${pageToken}&key=${API_KEY}`);
         const data = await response.json();
         if (data.items) {
